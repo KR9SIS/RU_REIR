@@ -2,24 +2,23 @@ public class Main {
     public static void main(String[] args) {
         Kattio io = new Kattio(System.in, System.out);
         int days = io.getInt();
-        int yesterdayTime = 0;
+        int maxTime = Integer.MAX_VALUE;
         int sumTime = 0;
+        int times[] = new int[days];
 
         for (int i = 0; i < days; i++) {
             int time = io.getInt();
-            if (time >= yesterdayTime) {
-                sumTime += time;
-            }
-            yesterdayTime = time;
+            times[i] = time;
         }
+
+        for (int i = days - 1; i >= 0; i--) {
+            if (times[i] < maxTime) {
+                maxTime = times[i];
+            }
+            sumTime += maxTime;
+        }
+
         io.println(sumTime);
         io.close();
     }
 }
-
-// Alg
-// Get number of days
-// For every day
-// add it to the sum
-// Check if it's less than the previous one
-// If it is break
