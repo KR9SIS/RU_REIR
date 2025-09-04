@@ -1,3 +1,4 @@
+
 /// Simple yet moderately fast I/O routines.
 /// Example usage:
 /// Kattio io = new Kattio(System.in, System.out);
@@ -25,13 +26,13 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.OutputStream;
 
-class Kattio extends PrintWriter {
-    public Kattio(InputStream i) {
+class KattIO extends PrintWriter {
+    public KattIO(InputStream i) {
         super(new BufferedOutputStream(System.out));
         this.r = new BufferedReader(new InputStreamReader(i));
     }
 
-    public Kattio(InputStream i, OutputStream o) {
+    public KattIO(InputStream i, OutputStream o) {
         super(new BufferedOutputStream(o));
         this.r = new BufferedReader(new InputStreamReader(i));
     }
@@ -72,7 +73,8 @@ class Kattio extends PrintWriter {
                     this.st = new StringTokenizer(this.line);
                 }
                 this.token = this.st.nextToken();
-            } catch (IOException e) {}
+            } catch (IOException e) {
+            }
         }
 
         return this.token;

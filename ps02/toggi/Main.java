@@ -1,44 +1,38 @@
 import java.lang.Math;
 
 public class Main {
-    // Newton-Raphson approximation for Lambert W (for positive real x)
-    // private static double lambertW(double x) {
-    // double w = Math.log(x + 1); // initial guess
-    // for (int i = 0; i < 100; i++) {
-    // double ew = Math.exp(w);
-    // double wew = w * ew;
-    // double delta = (wew - x) / (ew * (w + 1));
-    // w -= delta;
-    // if (Math.abs(delta) < 1e-10)
-    // break;
-    // }
-    // return w;
-    // }
-    private static double lambertW(double x) {
-        // Double lambertW using Hally's method
-        double w = Math.log(x + 1); // initial guess
-        for (int i = 0; i < 100; i++) {
-            double ew = Math.exp(w);
-            double wew = w * ew;
-            double t = wew - x;
-            double denominator = ew * (w + 1) - ((w + 2) * t) / (2 * (w + 1));
-            double delta = t / denominator;
-            w -= delta;
-            if (Math.abs(delta) < 1e-10)
-                break;
-        }
-        return w;
-    }
-
     public static void main(String[] args) {
         Kattio io = new Kattio(System.in, System.out);
-        double c = io.getDouble();
-        double x = 1e6 * c * Math.log(10); // 10^6 * c * ln(10)
-        double w = lambertW(x);
-        int n = (int) Math.exp(w);
-        io.println(n);
+        long sec = io.getLong();
+        long hi = 100000;
+        long lo = 1;
+        long ans = 0;
+
+        double running_time = calc(hi);
+        while (sec >= running_time) {
+            running_time = calc(hi);
+            hi *= 2;
+            // io.printf("runtime = %f\nhi = %f\n", running_time, hi);
+            // io.flush();
+        }
+
+        while (lo <= hi) {
+            long mid = lo + (hi - lo) / 2;
+            double time = calc(mid);
+            // io.printf("l = %f\nm = %f\nh = %f\nret = %f\n", lo, mid, hi, ret);
+            // io.flush();
+            if (time <= sec) {
+                ans = mid;
+                lo = mid + 1;
+            } else {
+                hi = mid - 1;
+            }
+        }
+        io.printf("%d\n", ans);
         io.close();
     }
-}
 
-// log10(n)/10**6
+    private static double calc(double num) {
+        return (num * Math.log10(num) / Math.pow(10, 6));
+    }
+}

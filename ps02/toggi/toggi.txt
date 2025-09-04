@@ -1,0 +1,19 @@
+Toggi loves the number pi. Toggi quite likes making his computer calulate pi
+but that can take quite a long time, depends a bit on the number of digits
+he wants to calculate. If he calculates the first n digits of pi it takes 
+n log10(n)/10⁶ seconds, where log10 denotes a logarithm of base 10.
+He wants to know to how many digits of pi he can calculate in the time he has.
+Help him find out.
+
+Input
+You are given an integer C, the number of seconds Toggi has.
+
+Output
+One line containing the integer n, the maximum number of digits of pi
+that Toggi can calculate in C seconds.
+
+Explanation of Sample Inputs
+Toggi can calculate 189481 digits in one second because
+189481 log10(189481)/10^6 ≈ 0.9999984203540794 <= 1
+But he can’t calculate more digits in a single seond beause
+189482 log10(189482)/10^6 ≈ 1.0000041322153754 > 1
