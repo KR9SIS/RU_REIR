@@ -68,6 +68,28 @@ class Kattio extends PrintWriter {
         return this.nextToken();
     }
 
+    public String getLine() {
+        // Case 1: We have already peeked a token (start or middle of a line)
+        if (this.token != null) {
+            StringBuilder sb = new StringBuilder(this.token);
+            this.token = null; // consume buffered token
+            while (this.st != null && this.st.hasMoreTokens()) {
+                sb.append(' ').append(this.st.nextToken());
+            }
+            // We have exhausted the tokenizer for the current physical line.
+            this.st = null;
+            return sb.toString();
+        }
+
+        // Case 2: Not mid-line: read a fresh physical line directly
+        try {
+            this.st = null; // reset tokenizer state
+            return this.r.readLine(); // may return null at EOF
+        } catch (IOException e) {
+            return null; // signal error/EOF condition
+        }
+    }
+
     private BufferedReader r;
     private String line;
     private StringTokenizer st;
