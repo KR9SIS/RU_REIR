@@ -90,6 +90,13 @@ class Kattio extends PrintWriter {
         }
     }
 
+    public void dumpIntArr(int[] a) {
+        for (int i = 0; i < a.length; i++) {
+            this.printf("%d ", a[i]);
+        }
+        this.println();
+    }
+
     private BufferedReader r;
     private String line;
     private StringTokenizer st;
